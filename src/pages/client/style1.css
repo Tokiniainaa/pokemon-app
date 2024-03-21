@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Mystery+Quest&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 99%;
+    background:url(../client/pikachu_artwork.0.jpg);
+}
+h1{
+    font-family: "Roboto Condensed", sans-serif;
+    font-weight: bolder;
+    font-size: 50px;
+
+}
+p{
+    font-size: 20px;
+    font-weight: 600;
+}
