@@ -11,6 +11,7 @@ export default function PokemonDetails({ pokemon }) {
       <p>Height: {pokemon.height}</p>
       <p>Weight: {pokemon.weight}</p>
       <p>Types: {pokemon.types.map(type => type.type.name).join(', ')}</p>
+      <p>Number: {pokemon.id}</p>
     </div>
   );
 }
