@@ -1,4 +1,3 @@
-// pages/client.js
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import axios from 'axios';
@@ -11,7 +10,15 @@ function ClientComponent() {
     const fetchPokemon = async () => {
       try {
         const response = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=50&offset=0');
-        setPokemonList(response.data.results);
+        const promises = response.data.results.map(async pokemon => {
+          const detailsResponse = await axios.get(pokemon.url);
+          return {
+            name: pokemon.name,
+            image: detailsResponse.data.sprites.front_default 
+          };
+        });
+        const pokemonWithData = await Promise.all(promises);
+        setPokemonList(pokemonWithData);
       } catch (error) {
         console.error('Error fetching Pokemon:', error);
       }
@@ -25,8 +32,9 @@ function ClientComponent() {
       <ul>
         {pokemonList.map((pokemon, index) => (
           <div key={index}>
-            <Link href={`/client/${index + 1}`} passHref>
-              <div>{pokemon.name}</div>
+            <Link href={`/client/${index + 1}`}>
+              <img src={pokemon.image} alt={pokemon.name} />
+              {pokemon.name}
             </Link>
           </div>
         ))}

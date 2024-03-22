@@ -1,10 +1,13 @@
 import axios from 'axios';
-import'./style1.css';
+ import './style1.css';
 
 export default function PokemonDetails({ pokemon }) {
+  const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`;
+
   return (
-    <div>
+    <div className='details'>
       <h1>{pokemon.name}</h1>
+      <img src={imageUrl} alt={pokemon.name} />
       <p>Height: {pokemon.height}</p>
       <p>Weight: {pokemon.weight}</p>
       <p>Types: {pokemon.types.map(type => type.type.name).join(', ')}</p>
@@ -17,6 +20,7 @@ export async function getServerSideProps({ params }) {
   try {
     const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
     const pokemon = {
+      id: response.data.id,
       name: response.data.name,
       height: response.data.height,
       weight: response.data.weight,
